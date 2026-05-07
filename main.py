@@ -99,9 +99,11 @@ def handle_chats():
             # except Exception as e:
             #     print(f"Ошибка при первичной загрузке чатов: {e}. Начинаем с чистого листа.")
             for chat in chats:
-                chat_id = chat['id']
-                last_msg = chat.get('last_message', {})
-
+                try:
+                    chat_id = chat['id']
+                    last_msg = chat.get('last_message', {})
+                except Exception as e:
+                    print(f"Ошибка тут: {e}")
 
                 # Если сообщение от другого пользователя и мы еще не отвечали в этой сессии
                 if last_msg.get('author_id') != my_id and chat_id not in processed_chats:
